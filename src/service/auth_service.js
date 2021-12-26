@@ -7,6 +7,17 @@ class AuthService {
     const authProvider = new firebase.auth[`${providerName}AuthProvider`]();
     return firebaseApp.auth().signInWithPopup(authProvider);
   }
+
+  logout() {
+    firebase.auth().signOut();
+  }
+
+  // 사용자가 변경 되었을 때
+  onAuthChange(onUserChanged) {
+    firebase.auth().onAuthStateChanged((user) => {
+      onUserChanged(user);
+    });
+  }
 }
 
 export default AuthService;
