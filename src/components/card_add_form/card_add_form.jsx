@@ -15,10 +15,10 @@ const CardAddForm = ({ onAdd }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     const card = {
-      id: Data.now(), // uid
+      id: Date.now(), // uid
       name: nameRef.current.value || "",
       company: companyRef.current.value || "",
-      theme: themeRef.current.value || "",
+      theme: themeRef.current.value,
       title: titleRef.current.value || "",
       email: emailRef.current.value || "",
       message: messageRef.current.value || "",
@@ -50,9 +50,9 @@ const CardAddForm = ({ onAdd }) => {
         name="theme"
         placeholder="Theme"
       >
-        <option placeholder="light">Light</option>
-        <option placeholder="dark">Dark</option>
-        <option placeholder="colorful">Colorful</option>
+        <option placeholder="light">light</option>
+        <option placeholder="dark">dark</option>
+        <option placeholder="colorful">colorful</option>
       </select>
       <input
         ref={titleRef}
