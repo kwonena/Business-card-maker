@@ -1,54 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Editor from "../editor/editor";
 import Footer from "../footer/footer";
 import Header from "../header/header";
 import Preview from "../preview/preview";
 import styles from "./maker.module.css";
 
-const Maker = ({ FileInput, authService }) => {
-  // Object 형식으로 카드 정보 저장
-  const [cards, setCards] = useState({
-    1: {
-      id: "1",
-      name: "ena",
-      company: "samsung",
-      theme: "dark",
-      email: "eeena214@gmail.com",
-      message: "go for it",
-      fileName: "ena",
-      fileURL: null,
-    },
-    2: {
-      id: "2",
-      name: "ena",
-      company: "samsung",
-      theme: "light",
-      email: "eeena214@gmail.com",
-      message: "go for it",
-      fileName: "ena",
-      fileURL: "ena.png",
-    },
-    3: {
-      id: "3",
-      name: "ena",
-      company: "samsung",
-      theme: "colorful",
-      email: "eeena214@gmail.com",
-      message: "go for it",
-      fileName: "ena",
-      fileURL: null,
-    },
-  });
-
+const Maker = ({ FileInput, authService, cardRepository }) => {
   const navigate = useNavigate();
+
+  const navigeteState = useLocation().state;
+
+  const [cards, setCards] = useState({});
+  const [userId, setUserId] = useState(navigeteState && navigeteState.id);
+
   const onLogout = () => {
     authService.logout();
   };
 
   useEffect(() => {
     authService.onAuthChange((user) => {
-      if (!user) {
+      if (user) {
+        setUserId(user.uid);
+      } else {
         navigate("/");
       }
     });
@@ -60,6 +34,7 @@ const Maker = ({ FileInput, authService }) => {
       updated[card.id] = card;
       return updated;
     });
+    cardRepository.saveCard(userId, card);
   };
 
   const deleteCard = (card) => {
