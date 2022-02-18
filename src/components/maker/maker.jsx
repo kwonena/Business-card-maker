@@ -18,6 +18,20 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
     authService.logout();
   };
 
+  // mount가 되어 사용자의 아이디가 변경되었을 때
+  useEffect(() => {
+    if (!userId) {
+      return;
+    }
+    const stopSync = cardRepository.syncCards(userId, (cards) => {
+      setCards(cards);
+    });
+    return () => stopSync();
+    // Unmount가 되어 컴포넌트를 보여주지 않을 때 리턴 사용
+    // 리액트가 자동으로 Unmount 될 때 함수 호출해줌
+  }, [userId]);
+
+  // 로그인 관련 useEffect
   useEffect(() => {
     authService.onAuthChange((user) => {
       if (user) {

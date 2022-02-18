@@ -4,6 +4,8 @@ class CardRepository {
   constructor(app) {
     this.db = getDatabase(app);
   }
+
+  // 데이터가 업데이트 될 때마다 호출되는 API
   syncCards(userId, onUpdate) {
     const query = ref(this.db, `${userId}/cards`);
     onValue(query, (snapshot) => {
@@ -12,6 +14,7 @@ class CardRepository {
     });
     return () => off(query);
   }
+
   saveCard(userId, card) {
     set(ref(this.db, `${userId}/cards/${card.id}`), card);
   }
