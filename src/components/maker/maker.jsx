@@ -29,7 +29,7 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
     return () => stopSync();
     // Unmount가 되어 컴포넌트를 보여주지 않을 때 리턴 사용
     // 리액트가 자동으로 Unmount 될 때 함수 호출해줌
-  }, [userId]);
+  }, [cardRepository, userId]);
 
   // 로그인 관련 useEffect
   useEffect(() => {
@@ -40,7 +40,7 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
         navigate("/");
       }
     });
-  });
+  }, [authService, navigate, userId]);
 
   const createOrUpdateCard = (card) => {
     setCards((cards) => {
