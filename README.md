@@ -1,7 +1,7 @@
 # Business Card Maker
 
 ## Description
-✔️ Business Card Maker : 명함 프로젝트<br>
+✔️ <b>Business Card Maker : 명함 프로젝트</b><br>
 ✔️ Firebase를 연동해 OAuth 로그인으로 명함을 만들고 볼 수 있는 프로젝트
 
 ## Link
